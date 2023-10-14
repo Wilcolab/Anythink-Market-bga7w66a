@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const connection = process.env.MONGODB_URI;
 mongoose.connect(connection);
 
-const User = mongoose.model("User");
-const Item = mongoose.model("Item");
-const Comment = mongoose.model("Comment");
+const User = require('../models/User');
+const Item = require('../models/Item');
+const Comment = require('../models/Comment');
 
 async function seedDatabase() {
     for(let i = 0; i < 100; i++) {
@@ -29,7 +29,7 @@ async function seedDatabase() {
                     item: createdItem,
                 });
 
-                await comment.saved();
+                await comment.save();
                 commentIds.push(comment._id);
             }
             createdItem.comments = commentIds;
